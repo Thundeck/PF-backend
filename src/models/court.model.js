@@ -7,8 +7,17 @@ const Float = mongoose.Types.Decimal128;
 
 const CourtSchema = new Schema({
   numberCourt: Number,
+
   description: String,
-  typeCourt: OBJECT,
+  typeCourt: {
+    type: OBJECT,
+    ref: "typecourt",
+  },
+  complexId: {
+    type: OBJECT,
+    ref: "complex",
+  },
+  img: String,
   price: Float,
   duration_turn: Float,
   active: {

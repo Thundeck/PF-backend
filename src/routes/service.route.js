@@ -1,19 +1,18 @@
 const { Router } = require("express");
 const {
-    createServicesComplejo,
-    getAllServicesComplejo,
-    getServicesComplejoID,
-    updateServicesComplejo,
-    deleteServicesComplejo,
-} = require("../controllers/servicesComplejo.controller.js");
+  createService,
+  getAllService,
+  getServiceID,
+  updateService,
+  deleteService,
+} = require("../controllers/service.controller.js");
 
+const serviceRoutes = Router();
 
-const servicesComplejoRoutes = Router();
+serviceRoutes.get("/all", getAllService);
+serviceRoutes.get("/:id", getServiceID);
+serviceRoutes.post("/create", createService);
+serviceRoutes.put("/update/:id", updateService);
+serviceRoutes.delete("/delete/:id", deleteService);
 
-servicesComplejoRoutes.get("/all", getAllServicesComplejo);
-servicesComplejoRoutes.get("/:id", getServicesComplejoID);
-servicesComplejoRoutes.post("/create", createServicesComplejo );
-servicesComplejoRoutes.put("/update/:id", updateServicesComplejo);
-servicesComplejoRoutes.delete("/delete/:id", deleteServicesComplejo);
-
-module.exports = servicesComplejoRoutes;
+module.exports = serviceRoutes;

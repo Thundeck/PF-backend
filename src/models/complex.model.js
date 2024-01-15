@@ -12,9 +12,11 @@ const ComplexSchema = new Schema({
   imgs: [String],
   address: String,
   city: String,
-  lat: Float,
-  lng: Float,
+  province: String,
+  lat: String,
+  lng: String,
   website: String,
+  owner: OBJECT,
   deleted: {
     type: Boolean,
     default: false,
@@ -27,14 +29,14 @@ const ComplexSchema = new Schema({
     type: [String],
     require: true,
   },
-  time_work_ranges: {
+  time_work: {
     type: [String],
     require: true,
   },
   recaudado: Number,
   services: {
     type: [OBJECT],
-    ref: "services",
+    ref: "service",
   },
   events: {
     type: [OBJECT],
@@ -48,14 +50,28 @@ const ComplexSchema = new Schema({
     type: [OBJECT],
     ref: "client",
   },
+  typeCourts: {
+    type: [OBJECT],
+    ref: "typecourt",
+  },
+  shifts: {
+    type: [OBJECT],
+    ref: "shift",
+  },
   reviews: {
     //reviews que recibe
     type: [OBJECT],
     ref: "review",
   },
+  like: {
+    type: Float,
+    min: 1,
+    max: 5,
+    default: 0.0,
+  },
 });
 
-const ComplexModel = mongoose.model("complex", ComplexSchema);
+const Complex = mongoose.model("complex", ComplexSchema);
 
 module.exports = Complex;
 

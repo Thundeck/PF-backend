@@ -14,7 +14,7 @@ const getAllClients = async (req, res) => {
 const createClient = async (req, res) => {
   try {
     const response = await clientService.createClient(req.body);
-    res.status(201).json({ msg: response });
+    res.status(201).json(response);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -46,7 +46,27 @@ const updateClient = async (req, res) => {
   try {
     const { id } = req.params;
     await clientService.updateClient(id, req.body);
-    res.send("Client updated successfully");
+    res.status(200).send("Client updated successfully");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const addFavorite = async (req, res) => {
+  try {
+    const { client, complex } = req.params;
+    const clientAddFav = await clientService.addFavorite(client, complex);
+    res.status(200).send(clientAddFav);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const deleteFavorite = async (req, res) => {
+  try {
+    const { client, complex } = req.params;
+    const clientDelFav = await clientService.deleteFavorite(client, complex);
+    res.send(clientDelFav);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -109,7 +129,7 @@ const clientProfile = (req, res) => {
     const { user } = req;
     res.json(user);
   } catch (error) {
-    console.log(error);
+    res.status(400).json(error);
   }
 };
 
@@ -136,4 +156,6 @@ module.exports = {
   forgotClientPassword,
   clientProfile,
   googleLogin,
+  addFavorite,
+  deleteFavorite,
 };

@@ -13,7 +13,7 @@ const sendNotificationMail = async (
     secure: true,
     port: 465,
     auth: {
-      user: process.env.USER_MAIL,
+      user: process.env.ADMIN_MAIL,
       pass: process.env.PASS,
     },
     tls: {
@@ -37,11 +37,9 @@ const sendNotificationMail = async (
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log(info);
     return info;
   } catch (err) {
-    console.log(err);
-    return err;
+    throw new Error(err.message);
   }
 };
 

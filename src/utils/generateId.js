@@ -4,4 +4,4 @@ const Token = () => {
   return randomString + date;
 };
 
-module.exports = { generateId };
+module.exports = { Token };

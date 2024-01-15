@@ -1,15 +1,26 @@
 const mongoose = require("mongoose");
+const Court = require("./court.model");
 
 const Schema = mongoose.Schema;
 
+const OBJECT = mongoose.Types.ObjectId;
+
 const ShiftSchema = new Schema({
   date: {
-    type: Date,
-    require: true,
-  },
-  time_start: {
     type: String,
     require: true,
+  },
+  court: {
+    type: OBJECT,
+    ref: "court",
+  },
+  client: {
+    type: OBJECT,
+    ref: "client",
+  },
+  complex: {
+    type: OBJECT,
+    ref: "complex",
   },
   state: {
     type: Boolean,

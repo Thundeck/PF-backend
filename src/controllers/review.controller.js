@@ -5,10 +5,9 @@ const getReviewsComplejo = async (req, res) => {
     const idComplejo = req.params.id;
     const reviews = await reviewService.getReviewsComplejo(idComplejo);
 
-
     res.status(200).json(reviews);
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -18,7 +17,7 @@ const getAllReviews = async (req, res) => {
 
     res.status(200).json(reviews);
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -28,10 +27,9 @@ const getReviewID = async (req, res) => {
     const review = await reviewService.getReviewID(reviewId);
     res.status(200).json(review);
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json({ message: error.message });
   }
 };
-
 
 const deleteReview = async (req, res) => {
   try {
@@ -39,7 +37,7 @@ const deleteReview = async (req, res) => {
     const reviewDeleted = await reviewService.deleteReview(reviewId);
     res.status(200).json(reviewDeleted);
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -49,21 +47,19 @@ const createReview = async (req, res) => {
     const reviewCreated = await reviewService.createReview(review);
     res.status(201).json(reviewCreated);
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: error.message });
   }
 };
 
+const updateReview = async (req, res) => {
+  try {
+    const reviewData = req.body;
+    const reviewUpdated = await reviewService.updateReview(reviewData);
 
-const updateReview = async(req, res) => {
-    try {
-        const reviewData = req.body;
-        const reviewUpdated = await reviewService.updateReview(reviewData);
-
-        res.status(201).json(reviewUpdated)
-    } catch (error) {
-        res.status(500).json(error)
-    }
+    res.status(201).json(reviewUpdated);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 module.exports = {

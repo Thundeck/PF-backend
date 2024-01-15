@@ -42,7 +42,7 @@ const sendMailValidation = async (userName, mail, token) => {
                 }
                 .link{
                     font-weight: 700;
-                    color: #b00002;
+                    color: #405cbb;
                 }
                 .link:hover {
                     transition: all 0.2s ease-in;
@@ -68,8 +68,8 @@ const sendMailValidation = async (userName, mail, token) => {
                     padding: 10px 0px 10px 0px;
                     width: 100% ;
                     " >
-                        <h1 style="text-decoration: underline #b00002 4px ;" >
-                            TH Music
+                        <h1 style="text-decoration: underline #405cbb 4px ;" >
+                            BooKing
                         </h1>
                     </div>
                     <hr style="border-color:#bbbbbb;" >
@@ -81,30 +81,31 @@ const sendMailValidation = async (userName, mail, token) => {
                     text-align: center;
                     ">
                         <h2>Account validation </h2>
-                        <h3 id="user" style="color:#b00002;" >${userName}</h3>
+                        <h3 id="user" style="color:#405cbb;" >${userName}</h3>
                         <br/>        
                         <p>In case you are not interested in the registration, you did not have the consent of creation or for any other reason you do not wish to confirm the account, please contact us at the following address</p>
                         <a class="link" href="mailto:briangleguizamon@gmail.com">Contact</a>
                         <br/>        
                         <p>To validate your user account, paste the following ID</p>
                         <div 
-                        style="text-align: center;"
+                        style="text-align: center;
+                        width: 100%;
+                        "
                         >
         
                             <p 
                             id="token"
                             style="
                         text-align: center;
-                        background-color: #b00002;
+                        background-color: #405cbb;
                         border-radius: 15px;
-                        width: 15rem;
                         padding: 20px;
                         font-size: larger;
                         font-weight: 700;
                         letter-spacing: 3px;
-                        ">n${token}</p>
+                        ">${token}</p>
                     </div>
-                </div>>
+                </div>
                     <div style="
                         width: 100%;
                         height: 4rem;
@@ -112,13 +113,14 @@ const sendMailValidation = async (userName, mail, token) => {
                         flex-direction: row;
                         align-items: center;
                         justify-content: center;
-                        background-color:#b00002 ;
+                        background-color:#405cbb ;
                         border-radius: 10px 10px 0px 0px;
+                        text-align: center;
                         color: #fff;
                         ">
-                    <a href="https://www.facebook.com"><img src="/public/img/facebook.svg" alt="facebook"></a>
-                    <a href="https://twitter.com"><img src="/public/img/twitter.svg" alt="twitter"></a>
-                    <a href="https://web.whatsapp.com"<img src="/public/img/whatsapp.svg" alt="whatsapp">></a>
+                    <a href="https://www.facebook.com"><img src="/public/img/facebook.svg" alt="facebook"/></a>
+                    <a href="https://twitter.com"><img src="/public/img/twitter.svg" alt="twitter"/></a>
+                    <a href="https://web.whatsapp.com"<img src="/public/img/whatsapp.svg" alt="whatsapp"/></a>
                     </div>
                 </div>
             </div>
@@ -161,10 +163,10 @@ const sendMailBannedUser = async (userMail) => {
   }
 };
 
-const sendMailBannedComplejo = async (userMail) => {
+const sendMailBannedComplex = async (userMail) => {
   try {
     const subject = "Complex banned";
-    const htmlMessage = `<h2>Complejo has been banned</h2>
+    const htmlMessage = `<h2>Complex has been banned</h2>
         <p>Your complex has been removed</p>
         <p>For more information please contact the developers at the following contact form</p>
         <a href="/">Click here</a>        
@@ -208,6 +210,6 @@ module.exports = {
   sendNotificationWithMail,
   sendMailValidation,
   sendMailBannedUser,
-  sendMailBannedComplejo,
+  sendMailBannedComplex,
   sendMailPasswordRestore,
 };

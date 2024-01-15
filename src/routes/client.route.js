@@ -12,6 +12,8 @@ const {
   forgotClientPassword,
   clientProfile,
   googleLogin,
+  addFavorite,
+  deleteFavorite,
 } = require("../controllers/client.controller.js");
 const { checkAuth } = require("../middleware/checkAuth.js");
 const clientRoutes = Router();
@@ -21,6 +23,8 @@ clientRoutes.get("/profile", checkAuth, clientProfile);
 clientRoutes.get("/all", getAllClients);
 
 clientRoutes.post("/create", createClient);
+clientRoutes.put("/favorite/:client/:complex", addFavorite);
+clientRoutes.delete("/favorite/:client/:complex", deleteFavorite);
 clientRoutes.put("/update/:id", updateClient);
 clientRoutes.delete("/delete/:id", deleteClient);
 
@@ -29,7 +33,7 @@ clientRoutes.post("/googleAuth", googleLogin);
 
 clientRoutes.post("/forgot-password", forgotClientPassword);
 
-clientRoutes.get("/confirm-account/:token", confirmClientAccount);
+clientRoutes.put("/confirm-account/:token", confirmClientAccount);
 
 clientRoutes
   .route("/forgot-password/:token")
@@ -39,4 +43,3 @@ clientRoutes
 clientRoutes.get("/:id", getClientID);
 
 module.exports = clientRoutes;
-

@@ -1,19 +1,25 @@
 const { Router } = require("express");
 const {
-    getAllComplejos,
-    createComplejo,
-    getComplejoID,
-    updateComplejo,
-    deleteComplejo
-} = require("../controllers/complejo.controller.js");
+  getAllComplex,
+  getAllComplexCity,
+  createComplex,
+  getComplexID,
+  updateComplex,
+  deleteComplex,
+  getMostLikedComplex,
+  getUserComplex,
+  getMostLiked,
+} = require("../controllers/complex.controller.js");
 
+const complexRoutes = Router();
 
-const complejoRoutes = Router();
+complexRoutes.get("/all", getAllComplex);
+complexRoutes.get("/ranking", getMostLiked);
+complexRoutes.post("/all-city", getAllComplexCity);
+complexRoutes.get("/user-complex/:id", getUserComplex);
+complexRoutes.get("/details/:id", getComplexID);
+complexRoutes.post("/create", createComplex);
+complexRoutes.put("/update/:id", updateComplex);
+complexRoutes.delete("/delete/:id", deleteComplex);
 
-complejoRoutes.get("/all", getAllComplejos);
-complejoRoutes.get("/:id", getComplejoID);
-complejoRoutes.post("/create", createComplejo );
-complejoRoutes.put("/update/:id", updateComplejo);
-complejoRoutes.delete("/delete/:id", deleteComplejo);
-
-module.exports = complejoRoutes;
+module.exports = complexRoutes;

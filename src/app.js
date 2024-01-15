@@ -1,16 +1,15 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import { urlencoded, json } from "body-parser";
-import morgan from "morgan";
-import routes from "./routes/index.js";
-import { config } from "dotenv";
-// const mercadopago = require("mercadopago");
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const { urlencoded, json } = require("body-parser");
+const morgan = require("morgan");
+const routes = require("./routes/index.js");
+const { config } = require("dotenv");
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+config();
 
-import "./db.js";
+const db = require("./db.js");
 
 const server = express();
-
-config();
 
 server.name = "API";
 
@@ -29,37 +28,48 @@ server.use((req, res, next) => {
   next();
 });
 
-// //mercadopago
-// mercadopago.configure({ access_token: process.env.ACCESS_TOKEN });
-// server.post("/payment", (req, res) => {
-//   const prod = req.body;
-//   let preference = {
-//     items: [
-//       {
-//         id: prod.id,
-//         title: prod.name,
-//         currency_id: "ARS",
-//         picture_url: prod.image,
-//         description: prod.event,
-//         category_id: "art",
-//         quantity: 1,
-//         unit_price: prod.price,
-//       },
-//     ],
-//     back_urls: {
-//       failure: "/http://localhost:3000/reservations",
-//       pending: "/pending",
-//       success: "http://localhost:3000/reservations",
-//     },
-//     auto_return: "approved",
-//     binary_mode: true,
-//   };
-//   mercadopago.preferences
-//     .create(preference)
-//     .then((response) => res.status(200).send({ response }));
-// });
+const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN });
+
+const preference = new Preference(client);
+
+server.post("/payment", (req, res) => {
+  const { name, image, price } = req.body;
+  preference
+    .create({
+      body: {
+        items: [
+          {
+            title: name.toString(),
+            currency_id: "ARS",
+            picture_url: image.toString(),
+            quantity: 1,
+            unit_price: Number(price),
+          },
+        ],
+        back_urls: {
+          failure: "http://localhost:3000/reservations",
+          pending: "",
+          success: "http://localhost:3000/reservations",
+        },
+        auto_return: "approved",
+        binary_mode: true,
+      },
+    })
+    .then((response) => res.status(200).send(response))
+    .catch((error) => {
+      res.status(error.status).json({ message: error.message });
+    });
+});
 
 server.use("/", routes);
+
+server.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    console.error(err);
+    return res.status(400).send({ status: 404, message: err.message }); // Bad request
+  }
+  next();
+});
 
 server.use((err, req, res, next) => {
   const status = err.status || 500;
@@ -68,4 +78,4 @@ server.use((err, req, res, next) => {
   res.status(status).send(message);
 });
 
-export default server;
+module.exports = server;

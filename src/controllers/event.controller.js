@@ -1,5 +1,5 @@
 const eventService = require("../services/event.service");
-const { Event } = require("../db");
+const Event = require("../db");
 
 //Trae los eventos
 const getAllEvents = async (req, res) => {

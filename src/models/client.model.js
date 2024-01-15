@@ -32,10 +32,6 @@ const ClientSchema = new Schema({
     type: [OBJECT],
     ref: "complex",
   },
-  isOwner: {
-    type: Boolean,
-    default: false,
-  },
   rol: {
     type: String,
     enum: ["client", "owner", "admin"],
@@ -51,7 +47,6 @@ const ClientSchema = new Schema({
   },
   shifts: {
     // shifts que ha reservado
-
     type: [OBJECT],
     ref: "shift",
   },

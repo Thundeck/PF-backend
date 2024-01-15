@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ServiceSchema = new Schema({
-  nameservice: {
+  name: {
     type: String,
     require: true,
   },
   icon: String,
-});
+}); ///agregar status para poder deshabilitar el servicio
 
 const Service = mongoose.model("service", ServiceSchema);
 

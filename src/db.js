@@ -4,7 +4,7 @@ dotenv.config();
 
 const uri = process.env.DB_URL || 3001;
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri);
 
 mongoose.connection.once("open", function () {
   console.log("Connected to MongoDB Atlas!");
